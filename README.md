@@ -224,4 +224,4 @@ This project demonstrates hands-on practice with AWS EC2, Ubuntu, Docker-based a
 
 ## Author
 
-[UmarArshad3](https://github.com/UmarArshad3)
+[umararshad0](https://github.com/umararshad0)
