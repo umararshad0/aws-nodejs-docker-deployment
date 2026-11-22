@@ -81,6 +81,13 @@ aws-nodejs-docker-deployment/
 
 ## Run Locally with Node.js
 
+Clone the repository and enter its directory:
+
+```bash
+git clone https://github.com/umararshad0/aws-nodejs-docker-deployment.git
+cd aws-nodejs-docker-deployment
+```
+
 Install dependencies:
 
 ```bash
@@ -217,6 +224,8 @@ The deployment was tested at several levels:
 4. Public AWS Elastic IP
 
 HTTP requests returned successful `200 OK` responses during testing.
+
+The EC2 instance, Elastic IP, Security Group, and Nginx host configuration were set up outside this repository; the project does not provision AWS resources. Stop or terminate lab resources and release an unused Elastic IP when finished to avoid ongoing AWS charges.
 
 ## Purpose
 
