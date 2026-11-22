@@ -1,16 +1,67 @@
 # AWS Node.js Docker Deployment
 
-A containerized Node.js/Express application deployed on an AWS EC2 Ubuntu server using Docker and Nginx as a reverse proxy.
+A Node.js and Express application containerized with Docker and served through Nginx on an AWS EC2 host.
 
-This project demonstrates containerization, reverse proxy configuration, deployment verification, and basic network isolation on AWS.
+## Problem & Solution
 
-## Architecture
+- **Problem:** A web service needs a repeatable runtime and a clear boundary between the public proxy and application port.
+- **Approach:** Docker runs the app while Nginx handles incoming HTTP requests and forwards them to Node.js.
+- **Outcome:** The deployment demonstrates container operations and a reverse-proxy path that keeps the app port private.
+
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center" valign="top">
+      <img src="docs/screenshots/dockerfile.png" alt="Dockerfile" width="420">
+      <br><sub>Dockerfile</sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="docs/screenshots/docker-ps.png" alt="Docker containers running" width="420">
+      <br><sub>Docker containers running</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top">
+      <img src="docs/screenshots/docker-logs.png" alt="Docker application logs" width="420">
+      <br><sub>Docker application logs</sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="docs/screenshots/nginx%20-t.png" alt="Nginx configuration test" width="420">
+      <br><sub>Nginx configuration test</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top">
+      <img src="docs/screenshots/curl-nginx-test.png" alt="Nginx reverse proxy test" width="420">
+      <br><sub>Nginx reverse proxy test</sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="docs/screenshots/nodeapp-running.png" alt="Node.js application running" width="420">
+      <br><sub>Node.js application running</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top">
+      <img src="docs/screenshots/ec2-running-nginx.png" alt="EC2 instance running Nginx" width="420">
+      <br><sub>EC2 instance running Nginx</sub>
+    </td>
+    <td></td>
+  </tr>
+</table>
+
+## Architecture Diagram
 
 ![AWS Node.js Docker deployment architecture](docs/screenshots/aws-nodejs-docker-architecture.png)
 
+### Architecture Notes
+
 **Request flow:** Internet → AWS Elastic IP → EC2 Ubuntu → Nginx on port 80 → Dockerized Node.js/Express application on `127.0.0.1:3000`.
 
-## Technologies
+## Project Details
+
+### Technologies
+
 
 - AWS EC2 and Elastic IP
 - Ubuntu Linux
@@ -19,7 +70,9 @@ This project demonstrates containerization, reverse proxy configuration, deploym
 - Nginx
 - Git and GitHub
 
-## Deployment Features
+
+### Deployment Features
+
 
 - Node.js application running inside a Docker container
 - Nginx configured as a reverse proxy
@@ -30,7 +83,9 @@ This project demonstrates containerization, reverse proxy configuration, deploym
 - Docker image built on the EC2 instance
 - Application source code tracked with Git and GitHub
 
-## Project Structure
+
+### Project Structure
+
 
 ```text
 aws-nodejs-docker-deployment/
@@ -47,39 +102,9 @@ aws-nodejs-docker-deployment/
         └── ...
 ```
 
-## Deployment Screenshots
 
-### Docker Configuration
+### Run Locally with Node.js
 
-**Dockerfile**
-
-![Dockerfile](docs/screenshots/dockerfile.png)
-
-### Running Containers
-
-![Docker containers running](docs/screenshots/docker-ps.png)
-
-### Application Logs
-
-![Docker application logs](docs/screenshots/docker-logs.png)
-
-### Nginx Configuration Validation
-
-![Nginx configuration test](docs/screenshots/nginx%20-t.png)
-
-### Nginx Reverse Proxy Verification
-
-![Nginx reverse proxy test](docs/screenshots/curl-nginx-test.png)
-
-### Application Running
-
-![Node.js application running](docs/screenshots/nodeapp-running.png)
-
-### EC2 and Nginx
-
-![EC2 instance running Nginx](docs/screenshots/ec2-running-nginx.png)
-
-## Run Locally with Node.js
 
 Clone the repository and enter its directory:
 
@@ -106,13 +131,17 @@ The application listens on:
 http://localhost:3000
 ```
 
-## Build the Docker Image
+
+### Build the Docker Image
+
 
 ```bash
 docker build -t node-app:1.0 .
 ```
 
-## Run the Docker Container
+
+### Run the Docker Container
+
 
 ```bash
 docker run -d \
@@ -121,13 +150,17 @@ docker run -d \
   node-app:1.0
 ```
 
-## Configure the Restart Policy
+
+### Configure the Restart Policy
+
 
 ```bash
 docker update --restart unless-stopped node-app-container
 ```
 
-## Nginx Reverse Proxy
+
+### Nginx Reverse Proxy
+
 
 Nginx forwards incoming HTTP requests on port 80 to the Node.js application at `127.0.0.1:3000`.
 
@@ -160,7 +193,9 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
-## Security
+
+### Security
+
 
 The application port is bound to the EC2 instance's loopback interface instead of being published directly to the internet.
 
@@ -182,7 +217,9 @@ The AWS Security Group was configured for:
 
 *Opening port 443 in a Security Group does not by itself enable HTTPS; a valid TLS certificate and HTTPS server configuration are also required.*
 
-## Useful Commands
+
+### Useful Commands
+
 
 Check running containers:
 
@@ -214,7 +251,9 @@ Check Nginx status:
 sudo systemctl status nginx
 ```
 
-## Deployment Verification
+
+### Deployment Verification
+
 
 The deployment was tested at several levels:
 
@@ -227,10 +266,12 @@ HTTP requests returned successful `200 OK` responses during testing.
 
 The EC2 instance, Elastic IP, Security Group, and Nginx host configuration were set up outside this repository; the project does not provision AWS resources. Stop or terminate lab resources and release an unused Elastic IP when finished to avoid ongoing AWS charges.
 
-## Purpose
+
+### Purpose
+
 
 This project demonstrates hands-on practice with AWS EC2, Ubuntu, Docker-based application deployment, Nginx reverse proxying, network isolation, container process management, and Git-based version control.
 
 ## Author
 
-[umararshad0](https://github.com/umararshad0)
+**Umar Arshad** · [GitHub](https://github.com/umararshad0)
